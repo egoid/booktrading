@@ -4,8 +4,25 @@ $(document).ready(init);
 
 function init(){
 
-  $('#addBook').click(addBook)
+  $('#addBook').click(addBook);
+  $('.del').click(remove)
 
+}
+
+function remove(){
+
+  var idToDel = $(this).siblings('.id').text();
+  $.ajax({
+    url: '/books',
+    method: 'DELETE',
+    data: {_id: idToDel}
+  })
+  .done(function(message){
+    console.log(message)
+  })
+  .fail(function(err){
+    console.log(err)
+  })
 }
 
 function addBook(){

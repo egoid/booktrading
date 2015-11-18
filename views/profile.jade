@@ -20,6 +20,8 @@ block content
     ul#bookList
       each book in user.books
         li= '"' + book.title + '" by ' + book.author
+          button.del Delete
+          span.id= book._id
   p
     a(href='/logout') Logout
   script(src='bower_components/jquery/dist/jquery.min.js')

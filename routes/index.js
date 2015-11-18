@@ -46,8 +46,7 @@ router.post('/register', function(req,res){
     newUser.username = user.username;
     newUser.password = user.password;
     newUser.save();
-    console.log('new user is  '+newUser);    
-    res.send(newUser);
+    res.redirect('/');
   } else {
     res.send('passwords dont match')
   }
@@ -67,6 +66,19 @@ router.post('/books', function(req,res){
     })
   });
 });
+
+router.delete('/books', function(req,res){
+  console.log('req.body._id:', req.body)
+
+  Books.findOne(req.body._id , function(err,data){
+    console.log(data)
+  })
+  // Books.findById(req.body._id , function(err , data){
+  //   console.log(data + ' this is the data')
+  //   if (err) return res.status(400).send(err);
+  //   res.status(200).send('successful delete');
+  // })
+})
 
 
 module.exports = router;
