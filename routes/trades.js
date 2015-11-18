@@ -4,15 +4,20 @@ var express = require('express');
 var router = express.Router();
 var User = require('../models/users');
 var Book = require('../models/books')
-
+var Trade = require('../models/trades')
 
 
 router.post('/', function(req,res){
-  var trade = req.body;
+  var trade = new Trade();
+  trade.owner = req.cookies.id;
+  trade.offer = req.body.offer;
 
   console.log('trade:', trade);
 
-  res.send('trade received');
+  trade.save(function(err, savedTrade){
+    if (err) return res.status(400).send(err);
+    res.status(200).send(savedTrade);
+  })
 
   // User.find({username: user.username}, function(err, foundUser){
   //   if (err) return res.status(400).send(err);
