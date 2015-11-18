@@ -10,12 +10,15 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/login', function(req,res){
-  var user = req.body
-  if (user.username === 'codinghouse@codinghouse.co' && user.password ==='werock') {
-    res.send('win')
-  } else {
-    res.send('fail')
-  }
+  var user = req.body;
+  User.find({username: user.username}, function(err, foundUser){
+    if (err) return res.status(400).send(err);
+    if (user.password === foundUser[0].password) {
+      res.send('logged in as ' + foundUser[0].username)
+    } else {
+      res.send('fail')
+    }
+  });
 })
 
 router.post('/register', function(req,res){
