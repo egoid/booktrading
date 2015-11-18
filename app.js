@@ -16,6 +16,7 @@ mongoose.connect(mongoUrl, function(err){
 });
 
 var routes = require('./routes/index');
+var books = require('./routes/books');
 var trades = require('./routes/trades');
 
 var app = express();
@@ -34,6 +35,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 app.use('/', routes);
+app.use('/books', books);
 app.use('/trades', trades);
 
 

@@ -16,12 +16,17 @@ function offer(){
   var bookToOffer = $(this).siblings('.id').text();
 
   $.post('/trades', {offer: bookToOffer})
-  .done(function(){
-    console.log('book posted for offer')
+  .done(function(trade){
+    console.log('saved trade:', trade)
   })
+  .fail(function(err){
+    console.log('error posting trade:', err)
+  });
 }
 
 function remove(){
+  // ALSO NEEDS TO DELETE ANY TRADES WITH THIS BOOK
+
   var idToDel = $(this).siblings('.id').text();
   $.ajax({
     url: '/books',
