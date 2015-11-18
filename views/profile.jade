@@ -1,13 +1,28 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
-  form(action="/login" method='post')
-    | Username
-    input#loginUser(type='text' name='username')
+  h1 Profile
+  span Welcome to your profile, 
+  span= user.username
+  p
     br
-    | Password
-    input#loginPassword(type='password' name='password')
+    | Title
+    input#title(type='text' name='title')
     br
-    button(type='submit') Log Me In
+    | Author
+    input#author(type='text' name='author')
+    br
+    br
+    button#addBook(type='submit') Add New Book 
+  p
+  hr
+  p My Books
+    ul#bookList
+      each book in user.books
+        li= '"' + book.title + '" by ' + book.author
+  p
+    a(href='/logout') Logout
+  script(src='bower_components/jquery/dist/jquery.min.js')
+  script(src="javascripts/profile.js")
+
+  
