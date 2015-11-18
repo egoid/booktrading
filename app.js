@@ -7,6 +7,14 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+var mongoUrl = process.env.MONGOLAB_URI || 'mongodb://localhost/booktrading';
+
+var mongoose = require('mongoose');
+mongoose.connect(mongoUrl, function(err){
+  if(err) return console.log('Error connecting to Mongodb:', err);
+  console.log('Connected to MongoDB:', mongoUrl);
+});
+
 var routes = require('./routes/index');
 // var users = require('./routes/users');
 

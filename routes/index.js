@@ -1,3 +1,5 @@
+'use strict';
+
 var express = require('express');
 var router = express.Router();
 
@@ -12,6 +14,15 @@ router.post('/login', function(req,res){
     res.send('win')
   } else {
     res.send('fail')
+  }
+})
+
+router.post('/register', function(req,res){
+  var user  = req.body
+  if (user.password === user.password2) {
+    res.send(user);
+  } else {
+    res.send('passwords dont match')
   }
 })
 
