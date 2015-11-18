@@ -20,6 +20,7 @@ block content
     ul#bookList
       each book in user.books
         li= '"' + book.title + '" by ' + book.author
+          button.offer Offer For Trade
           button.del Delete
           span.id= book._id
   p

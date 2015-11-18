@@ -4,13 +4,24 @@ $(document).ready(init);
 
 function init(){
 
-  $('#addBook').click(addBook);
-  $('.del').click(remove)
+  $('#addBook').on('click', addBook);
+  $('#bookList').on('click', '.del', remove);
+  $('#bookList').on('click', '.offer', offer);
 
 }
 
-function remove(){
+function offer(){
+  console.log('offering for trade');
 
+  var bookToOffer = $(this).siblings('.id').text();
+
+  $.post('/trades', {offer: bookToOffer})
+  .done(function(){
+    console.log('book posted for offer')
+  })
+}
+
+function remove(){
   var idToDel = $(this).siblings('.id').text();
   $.ajax({
     url: '/books',
