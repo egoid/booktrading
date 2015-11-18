@@ -2,6 +2,7 @@
 
 var express = require('express');
 var router = express.Router();
+var User = require('../models/users');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -20,7 +21,13 @@ router.post('/login', function(req,res){
 router.post('/register', function(req,res){
   var user  = req.body
   if (user.password === user.password2) {
-    res.send(user);
+    // if passwords match, add new user
+    var newUser = new User();
+    newUser.username = user.username;
+    newUser.password = user.password;
+    newUser.save();
+    console.log('new user is  '+newUser);    
+    res.send(newUser);
   } else {
     res.send('passwords dont match')
   }
