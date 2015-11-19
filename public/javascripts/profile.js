@@ -24,6 +24,7 @@ function acceptBid(){
   })
   .done(function(message){
     console.log(message)
+    location.reload();
   })
   .fail(function(err){
     console.log('error finalizing bid', err)
@@ -59,6 +60,7 @@ function makeBid(){
   })
   .done(function(message){
     console.log(message)
+    location.reload();
   })
   .fail(function(err){
     console.log('error offering bid', err)
@@ -74,6 +76,7 @@ function offer(){
   $.post('/trades', {offer: bookToOffer})
   .done(function(trade){
     console.log('saved trade:', trade)
+    location.reload();
   })
   .fail(function(err){
     console.log('error posting trade:', err)
@@ -114,28 +117,3 @@ function addBook(){
   });
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
