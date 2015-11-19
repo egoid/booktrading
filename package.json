@@ -7,6 +7,9 @@
     "postinstall": "bower i",
     "setup": "rm -rf node_modules public/bower_components && npm i && bower i"
   },
+  "engines": {
+    "node": "5.0.0"
+  },
   "dependencies": {
     "bcryptjs": "^2.3.0",
     "body-parser": "~1.13.2",
