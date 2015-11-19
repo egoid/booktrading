@@ -1,11 +1,13 @@
 extends layout
 
 block content
-  h1 Profile
-  span Welcome to your profile, 
-  span= user.username
+  h1
+    - var name = user.username
+    span= name.slice(-1) === 's' ? name + "' " : name + "'s "
+    span Library
   p
     a(href='/logout') Logout
+  hr
   p
     br
     | Title
@@ -18,13 +20,26 @@ block content
     button#addBook(type='submit') Add New Book 
   p
   hr
-  p My Books
-    ul#bookList
-      each book in user.books
-        li= '"' + book.title + '" by ' + book.author
-          button.offer Offer For Trade
-          button.del Delete
-          span.id= book._id
+  table
+    thead
+      th My Books
+      th My Listings
+    tbody
+      td
+        ul#bookList
+          each book in user.books
+            li= '"' + book.title + '" by ' + book.author
+              button.offer Offer For Trade
+              button.del Delete
+              span.id= book._id
+      td
+        ul#myListings
+          each trade in myListings
+            li= '"' + trade.offer.title + '" by ' + trade.offer.author
+              ul
+                each bid in trade.bids
+                  li= '"' + bid.title + '" by ' + bid.author
+                    button.accept Accept
   hr
   button#showTrades Show/Hide Trade Listings
   ul#tradesList

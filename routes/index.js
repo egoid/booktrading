@@ -35,13 +35,15 @@ router.get('/profile', function(req,res){
   var userId = req.cookies.id;
   User.findById(userId, function(err, foundUser){
     if (err) return res.status(400).send(err);
-
-    // get list of available trades
     Trade.find({owner: {$ne: userId}}, function(err, tradesList){
-      res.render('profile', {user: foundUser, tradesList: tradesList});
+      if (err) return res.status(400).send(err);
+      Trade.find({owner: userId}, function(err, myListings){
+        if (err) return res.status(400).send(err);
+        res.render('profile', {user: foundUser,
+                               tradesList: tradesList,
+                               myListings: myListings});
+      }).populate('offer bids');
     }).populate('offer');
-
-
   }).populate('books');
 })
 

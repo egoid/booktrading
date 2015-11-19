@@ -7,10 +7,15 @@ a {
   color: #00B7FF;
 }
 
-/*.id {
+.id {
   display: none;
 }
 
-#tradesList {
+/*#tradesList {
   display: none;
 }*/
+
+td {
+  border: 1px solid #000;
+  width: 50%;
+}
