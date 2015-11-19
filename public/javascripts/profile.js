@@ -10,6 +10,25 @@ function init(){
   $('#showTrades').click(showTrades);
   $('#tradesList').on('click', '.bid', showBiddable);
   $('#tradesList').on('click', '.offer', makeBid);
+  $('#myListings').on('click', '.accept', acceptBid)
+}
+
+function acceptBid(){
+  var bidId = $(this).siblings('.id').text();
+  var tradeId = $(this).parent().parent().siblings('.id').text();
+
+  $.ajax({
+    url: '/trades',
+    method: 'DELETE',
+    data: {bidId: bidId, tradeId: tradeId}
+  })
+  .done(function(message){
+    console.log(message)
+  })
+  .fail(function(err){
+    console.log('error finalizing bid', err)
+  })
+
 }
 
 function showTrades(){

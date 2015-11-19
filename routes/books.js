@@ -11,6 +11,7 @@ router.post('/', function(req,res){
   var book = new Book();
   book.title = req.body.title;
   book.author = req.body.author;
+  book.owner = userId;
   book.save( function(err, book) {
     var bookId = book._id
     User.findById({_id: userId}, function(err, user){

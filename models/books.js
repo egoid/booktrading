@@ -7,7 +7,8 @@ var Book;
 
 var bookSchema = Schema({
   title: { type: String, required: true },
-  author: String
+  author: String,
+  owner: { type: Schema.Types.ObjectId, ref: 'User' }
 });
 
 
