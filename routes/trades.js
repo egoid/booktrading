@@ -81,15 +81,20 @@ router.delete('/', function(req, res){
 function swap(offeredBook, bidBook, owner, bidder, trade, res) {
   offeredBook.owner = bidder._id;
   bidBook.owner = owner._id;
-
   owner.books.splice(owner.books.indexOf(offeredBook._id), 1);
   owner.books.push(bidBook._id);
   bidder.books.splice(bidder.books.indexOf(bidBook._id), 1);
   bidder.books.push(offeredBook._id);
 
-  Trade.findByIdAndRemove(trade._id);
+  offeredBook.save();
+  bidBook.save();
+  owner.save();
+  bidder.save();
 
-  res.send();
+  Trade.findByIdAndRemove(trade._id, function(err){    
+    res.send('finished');
+  });
+
 }
 
 
