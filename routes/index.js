@@ -37,10 +37,10 @@ router.get('/profile', function(req,res){
     if (err) return res.status(400).send(err);
 
     // get list of available trades
-    Trade.find({}, function(err, tradesList){
+    Trade.find({owner: {$ne: userId}}, function(err, tradesList){
       res.render('profile', {user: foundUser, tradesList: tradesList});
     }).populate('offer');
-    
+
 
   }).populate('books');
 })

@@ -4,15 +4,25 @@ $(document).ready(init);
 
 function init(){
 
+  $('#addBook').click(addBook);
   $('#bookList').on('click', '.del', remove);
   $('#bookList').on('click', '.offer', offer);
-  $('#addBook').click(addBook);
   $('#showTrades').click(showTrades);
-
+  $('#tradesList').on('click', '.bid', bid);
 }
 
 function showTrades(){
   $('#tradesList').slideToggle();
+}
+
+function bid(){
+  console.log('bid!');
+
+  $(this).siblings('ul').remove();
+
+  var $yourBooks = $('#bookList').clone().removeAttr('id');
+  $yourBooks.find('.del').remove();
+  $(this).after($yourBooks);
 }
 
 function offer(){
@@ -52,10 +62,39 @@ function addBook(){
 
   $.post('/books', {author: author, title: title})
   .done(function(book){
-    $('<li>').text(title + ' by ' + author).appendTo('#bookList')
+    var $newBook = $('<li>').text('"' + title + '" by ' + author)
+    $newBook.append( $('<button>').addClass('offer').text('Offer For Trade') )
+            .append( $('<button>').addClass('del').text('Delete') )
+            .append( $('<span>').addClass('id').text(book._id) );
+    $newBook.appendTo('#bookList');
   })
   .fail(function(err) {
     console.log(err)
   });
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
