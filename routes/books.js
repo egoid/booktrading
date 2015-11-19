@@ -23,18 +23,20 @@ router.post('/', function(req,res){
   });
 });
 
-router.delete('/', function(req,res){
-  console.log('req.body._id:', req.body)
 
-  Books.findOne(req.body._id , function(err,data){
-    console.log(data)
-  })
-  // Books.findById(req.body._id , function(err , data){
-  //   console.log(data + ' this is the data')
-  //   if (err) return res.status(400).send(err);
-  //   res.status(200).send('successful delete');
-  // })
-})
+// WE NEVER GOT THIS WORKING
+// router.delete('/', function(req,res){
+//   console.log('req.body._id:', req.body)
+
+//   Books.findOne(req.body._id , function(err,data){
+//     console.log(data)
+//   })
+//   // Books.findById(req.body._id , function(err , data){
+//   //   console.log(data + ' this is the data')
+//   //   if (err) return res.status(400).send(err);
+//   //   res.status(200).send('successful delete');
+//   // })
+// })
 
 
 module.exports = router;

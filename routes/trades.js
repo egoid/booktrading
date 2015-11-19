@@ -12,22 +12,10 @@ router.post('/', function(req, res){
   trade.owner = req.cookies.id;
   trade.offer = req.body.offer;
 
-  console.log('trade:', trade);
-
   trade.save(function(err, savedTrade){
     if (err) return res.status(400).send(err);
     res.status(200).send(savedTrade);
   })
-
-  // User.find({username: user.username}, function(err, foundUser){
-  //   if (err) return res.status(400).send(err);
-  //   if (user.password === foundUser[0].password) {
-  //     res.cookie('id', foundUser[0]._id.toString());
-  //     res.redirect('profile');
-  //   } else {
-  //     res.send('fail');
-  //   }
-  // });
 })
 
 router.put('/', function(req, res){
@@ -97,20 +85,4 @@ function swap(offeredBook, bidBook, owner, bidder, trade, res) {
 
 }
 
-
-
-
 module.exports = router;
-
-
-
-
-
-
-
-
-
-
-
-
-

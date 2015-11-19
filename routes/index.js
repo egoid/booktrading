@@ -20,7 +20,6 @@ function routes(passport, bcrypt) {
   });
 
 
-
   router.post('/login', passport.authenticate('local'), function(req,res){
     var user = req.body;
     User.find({username: user.username}, function(err, foundUser){
@@ -34,18 +33,6 @@ function routes(passport, bcrypt) {
 
 
   router.post('/register', function(req,res){
-    // var user  = req.body
-    // if (user.password === user.password2) {
-    //   // if passwords match, add new user
-    //   var newUser = new User();
-    //   newUser.username = user.username;
-    //   newUser.password = user.password;
-    //   newUser.save();
-    //   res.redirect('/');
-    // } else {
-    //   res.send('passwords dont match')
-    // }
-
     if (req.body.password === req.body.password2) {
       // register user
 
@@ -75,6 +62,7 @@ function routes(passport, bcrypt) {
         if (err) return res.status(400).send(err);
         Trade.find({owner: userId}, function(err, myListings){
           if (err) return res.status(400).send(err);
+          foundUser.password = null; // don't leak the password!
           res.render('profile', {user: foundUser,
                                  tradesList: tradesList,
                                  myListings: myListings});

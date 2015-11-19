@@ -10,8 +10,6 @@ var session = require('express-session');
 var bcrypt = require('bcryptjs');
 var User = require('./models/users');
 
-
-
 var mongoUrl = process.env.MONGOLAB_URI || 'mongodb://localhost/booktrading';
 
 var mongoose = require('mongoose');
@@ -39,10 +37,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 
-
-
-
-
 app.use(session({ secret: process.env.JWT_SECRET, resave: false, saveUninitialized: true }));
 var passport = require('passport')
   , LocalStrategy = require('passport-local').Strategy;
@@ -50,20 +44,6 @@ var passport = require('passport')
 
 passport.use(new LocalStrategy(
   function(username, password, done) {
-    console.log('\nIn Strategy:')
-    console.log(username, password);
-
-    // // simplest possible:
-    // if (username.match(/nicholas/) && password === "cheetah") {
-    //   // All good, send a cookie
-    //   return done(null, {username: username});
-    // } else {
-    //   // Tell the user invalid username or password
-    //   return done(null, false);
-    // }
-
-
-
     User.findOne({ username: username }, function(err, user) {
       if (err) { return done(err); }
       if (!user) {
@@ -74,17 +54,14 @@ passport.use(new LocalStrategy(
       }
       return done(null, user);
     });
-    
   }
 ));
 
 passport.serializeUser(function(obj, done) {
-  console.log('\nIn serializeUser:', obj)
   done(null, obj);
 });
 
 passport.deserializeUser(function(obj, done) {
-  console.log('\nIn deserializeUser:')
   done(null, obj);
 });
 
@@ -92,14 +69,9 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 
-
-
 app.use('/', routes(passport, bcrypt));
 app.use('/books', books);
 app.use('/trades', trades);
-
-
-
 
 
 // catch 404 and forward to error handler

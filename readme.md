@@ -9,4 +9,4 @@ Allows users to:
 - bid on available trades with a book they own
 - compare and accept bids
 
-Deployed to Heroku @ https://nicholas-adam-booktrade.herokuapp.com
+The UI could use some work, but the basic functionality is decent. Deployed to Heroku @ https://nicholas-adam-booktrade.herokuapp.com
