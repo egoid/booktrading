@@ -4,10 +4,15 @@ $(document).ready(init);
 
 function init(){
 
-  $('#addBook').on('click', addBook);
   $('#bookList').on('click', '.del', remove);
   $('#bookList').on('click', '.offer', offer);
+  $('#addBook').click(addBook);
+  $('#showTrades').click(showTrades);
 
+}
+
+function showTrades(){
+  $('#tradesList').slideToggle();
 }
 
 function offer(){

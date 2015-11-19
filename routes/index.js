@@ -3,7 +3,8 @@
 var express = require('express');
 var router = express.Router();
 var User = require('../models/users');
-var Book = require('../models/books')
+var Book = require('../models/books');
+var Trade = require('../models/trades');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -34,7 +35,13 @@ router.get('/profile', function(req,res){
   var userId = req.cookies.id;
   User.findById(userId, function(err, foundUser){
     if (err) return res.status(400).send(err);
-    res.render('profile', {user: foundUser});
+
+    // get list of available trades
+    Trade.find({}, function(err, tradesList){
+      res.render('profile', {user: foundUser, tradesList: tradesList});
+    }).populate('offer');
+    
+
   }).populate('books');
 })
 

@@ -5,6 +5,8 @@ block content
   span Welcome to your profile, 
   span= user.username
   p
+    a(href='/logout') Logout
+  p
     br
     | Title
     input#title(type='text' name='title')
@@ -23,8 +25,13 @@ block content
           button.offer Offer For Trade
           button.del Delete
           span.id= book._id
-  p
-    a(href='/logout') Logout
+  hr
+  button#showTrades Show/Hide Trade Listings
+  ul#tradesList
+    each trade in tradesList
+      li= '"' + trade.offer.title + '" by ' + trade.offer.author
+        button.bid Bid
+        span.id= trade._id
   script(src='bower_components/jquery/dist/jquery.min.js')
   script(src="javascripts/profile.js")
 
