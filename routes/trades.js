@@ -63,22 +63,49 @@ router.delete('/', function(req, res){
           User.findById(bidderId, function(err, bidder){
 
             // we finally have all 5 documents we need:
-            //     offeredBook, bidBook, owner, bidder, trade
-            // we need to delete offeredBook from owner, add bidBook to owner
-            // we need to delete bidBook from bidder, add offeredBook to bidder
-            // finally, we need to delete trade
+            // offeredBook, bidBook, owner, bidder, trade
 
-            res.send(offeredBook + ', ' + bidBook + ', ' + owner + ', ' + bidder + ', ' + trade);
+            swap(offeredBook, bidBook, owner, bidder, trade, res);
 
           })
         })
       })
-
     })
   })
 })
+
+// first, change the owners of each book
+// we need to delete offeredBook from owner, add bidBook to owner
+// we need to delete bidBook from bidder, add offeredBook to bidder
+// finally, we need to delete trade
+function swap(offeredBook, bidBook, owner, bidder, trade, res) {
+  offeredBook.owner = bidder._id;
+  bidBook.owner = owner._id;
+
+  owner.books.splice(owner.books.indexOf(offeredBook._id), 1);
+  owner.books.push(bidBook._id);
+  bidder.books.splice(bidder.books.indexOf(bidBook._id), 1);
+  bidder.books.push(offeredBook._id);
+
+  Trade.findByIdAndRemove(trade._id);
+
+  res.send();
+}
 
 
 
 
 module.exports = router;
+
+
+
+
+
+
+
+
+
+
+
+
+
