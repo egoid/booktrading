@@ -8,14 +8,15 @@ function init(){
   $('#bookList').on('click', '.del', remove);
   $('#bookList').on('click', '.offer', offer);
   $('#showTrades').click(showTrades);
-  $('#tradesList').on('click', '.bid', bid);
+  $('#tradesList').on('click', '.bid', showBiddable);
+  $('#tradesList').on('click', '.offer', makeBid);
 }
 
 function showTrades(){
   $('#tradesList').slideToggle();
 }
 
-function bid(){
+function showBiddable(){
   console.log('bid!');
 
   $(this).siblings('ul').remove();
@@ -23,6 +24,27 @@ function bid(){
   var $yourBooks = $('#bookList').clone().removeAttr('id');
   $yourBooks.find('.del').remove();
   $(this).after($yourBooks);
+}
+
+function makeBid(){
+
+  var bookToOffer = $(this).siblings('.id').text();
+  var tradeId = $(this).parent().parent().siblings('.id').text();
+
+  // want to put bookToOffer in the 'bids' of the trade with tradeId
+
+  $.ajax({
+    url: '/trades',
+    method: 'PUT',
+    data: {bid: bookToOffer, _id: tradeId}
+  })
+  .done(function(message){
+    console.log(message)
+  })
+  .fail(function(err){
+    console.log('error offering bid', err)
+  })
+
 }
 
 function offer(){

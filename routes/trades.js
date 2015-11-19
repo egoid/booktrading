@@ -7,7 +7,7 @@ var Book = require('../models/books')
 var Trade = require('../models/trades')
 
 
-router.post('/', function(req,res){
+router.post('/', function(req, res){
   var trade = new Trade();
   trade.owner = req.cookies.id;
   trade.offer = req.body.offer;
@@ -29,6 +29,19 @@ router.post('/', function(req,res){
   //   }
   // });
 })
+
+router.put('/', function(req, res){
+
+  Trade.findById(req.body._id, function(err, trade) {
+    if (err) return res.status(400).send(err);
+    trade.bids.push(req.body.bid);
+    trade.save();
+    res.status(200).send(trade);
+  })
+  
+});
+
+
 
 
 module.exports = router;

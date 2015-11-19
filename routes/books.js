@@ -14,9 +14,10 @@ router.post('/', function(req,res){
   book.save( function(err, book) {
     var bookId = book._id
     User.findById({_id: userId}, function(err, user){
+      if (err) return res.status(400).send(err);
       user.books.push(bookId)
       user.save();
-      res.send(book);
+      res.status(200).send(book);
     })
   });
 });
